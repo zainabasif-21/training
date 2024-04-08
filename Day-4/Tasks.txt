@@ -1,3 +1,5 @@
+Day 4:
+
 Promises
     Callback hell?
     Why did we need promises? What problem do they solve?
