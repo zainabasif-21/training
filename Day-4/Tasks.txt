@@ -1,0 +1,24 @@
+Promises
+    Callback hell?
+    Why did we need promises? What problem do they solve?
+    .then() vs async / await
+    How do you catch errors while using await
+
+
+Mutation
+    Immutability 
+    Shallow copy vs Deep copy
+    Spread operator
+        When can the spread operator not help in making copies?
+
+Higher-Order Functions
+    Higher-Order Functions ft. Functional Programming | Namaste JavaScript Ep. 18
+    Difference between currying and HOCs
+
+Generator functions
+    Learn JavaScript Generators In 12 Minutes
+
+Errors
+    Type error
+    Syntax error
+    Reference error 

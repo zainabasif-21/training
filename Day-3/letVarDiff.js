@@ -17,4 +17,5 @@ if(true){
 console.log(`Printing a and b again. Both should be 1000 but due to block scope of a results will be 1000 
 but b will be 10 as var is reinitialized as it was declared again and var does't have a block scope`,a,b);
 
-console.log('Const can neither be reinitialized nor re-declared',pi)
+console.log('Const can neither be reinitialized nor re-declared',pi);
+
