@@ -1,44 +1,37 @@
 let fs=require('fs');
 
 // Assume we have an array of numbers
-const numberArray = [1, 2, 3, 4, 5];
+const numberArray =  [-111, 20, 30, 789, 0, -3];
 // Define an object that contains methods to perform operations on the array
 
 
-
+// 
 const arrayHandler = {
   numbers: numberArray,
   // Method to double each number in the array
   doubleNumbers() {
     // TODO: Implement doubling each number in the array
-    for(let i=0;i<this.numbers.length;i++)
-        this.numbers[i]=this.numbers[i]*2;
-    return this.numbers
+    this.numbers=this.numbers.map(num=>num*2)
+    return this.numbers;
   },
 
   // Method to square each number in the array
   squareNumbers() {
     // TODO: Implement squaring each number in the array
-    for(let i=0;i<this.numbers.length;i++)
-        this.numbers[i]=this.numbers[i]*this.numbers[i];
+    this.numbers.forEach((num,index,array)=> array[index]=num*num);
     return this.numbers;
   },
 
   // Method to filter out odd numbers from the array
   filterOddNumbers() {
     // TODO: Implement filtering out odd numbers from the array
-    let oddArray=[];
-    for(let i=0;i<this.numbers.length;i++)
-        if(this.numbers[i]%2==1)
-            oddArray.push(this.numbers[i]); 
-    return oddArray;
+    return this.numbers.filter((num)=> num%2==1);
   },
   // Method to sum all the numbers in the array
   sumNumbers() {
     // TODO: Implement summing all the numbers in the array
     let totalSum=0;
-    for(let i=0;i<this.numbers.length;i++)
-        totalSum+=this.numbers[i];  
+    this.numbers.forEach((num)=>{totalSum+=num});
     return totalSum;
 
   },
