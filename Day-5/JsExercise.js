@@ -18,7 +18,7 @@ const arrayHandler = {
   // Method to square each number in the array
   squareNumbers() {
     // TODO: Implement squaring each number in the array
-    this.numbers.forEach((num,index,array)=> array[index]=num*num);
+    this.numbers.forEach((num,ind,array)=> array[ind]=num*num);
     return this.numbers;
   },
 
@@ -30,9 +30,7 @@ const arrayHandler = {
   // Method to sum all the numbers in the array
   sumNumbers() {
     // TODO: Implement summing all the numbers in the array
-    let totalSum=0;
-    this.numbers.forEach((num)=>{totalSum+=num});
-    return totalSum;
+    return this.numbers.reduce((totalSum,num)=> totalSum+num);;
 
   },
   // Method to demonstrate asynchronous operation using promises
@@ -82,14 +80,7 @@ const arrayHandler = {
   // Method to find the maximum number in the array
   findMax() {
     // TODO: Implement finding the maximum number in the array
-    let maxNum=0;
-    for(let i=0;i<this.numbers.length;i++){
-        if(this.numbers[i]>maxNum)
-            maxNum=this.numbers[i];    
-    }
-    console.log('Maximum number inside the array: ',maxNum);
-    return maxNum;
-    
+    return this.numbers.reduce((max,curr)=>  curr>max? curr : max);
   },
   // Method to delay execution for a specified time
   delayExecution(ms) {
