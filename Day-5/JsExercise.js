@@ -1,7 +1,7 @@
 let fs = require("fs");
 
 // Assume we have an array of numbers
-const numberArray = [5,10,15,20,25];
+const numberArray = [13,5,15,20,25];
 // Define an object that contains methods to perform operations on the array
 
 //
@@ -10,7 +10,8 @@ const arrayHandler = {
   // Method to double each number in the array
   doubleNumbers() {
     // TODO: Implement doubling each number in the array
-    this.numbers = this.numbers.map((num) => num * 2);
+    //this.numbers = this.numbers.map((num) => num * 2);
+    this.numbers.forEach((num) => num * 2);
     return this.numbers;
   },
 
@@ -158,12 +159,12 @@ const arrayHandler = {
 // Test the array handling methods
 
 console.log("Double Numbers :", arrayHandler.doubleNumbers());
-console.log("Square Numbers : ", arrayHandler.squareNumbers());
-console.log("Odd Numbered Array : ", arrayHandler.filterOddNumbers());
-console.log("Sum of Numbers : ", arrayHandler.sumNumbers());
-console.log("Shuffled Array : ", arrayHandler.shuffleArray());
-console.log("Modified Array:", arrayHandler.numbers);
-console.log("Max Number:", arrayHandler.findMax());
+//console.log("Square Numbers : ", arrayHandler.squareNumbers());
+//console.log("Odd Numbered Array : ", arrayHandler.filterOddNumbers());
+// console.log("Sum of Numbers : ", arrayHandler.sumNumbers());
+// console.log("Shuffled Array : ", arrayHandler.shuffleArray());
+// console.log("Modified Array:", arrayHandler.numbers);
+// console.log("Max Number:", arrayHandler.findMax());
 console.log("Prime Number:", arrayHandler.checkPrimeNumbers());
 console.log("GCD : ", arrayHandler.findGCD());
 console.log("LCM : ", arrayHandler.findLCM());
