@@ -9,6 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [items, setItems] = useState({});
   const navigate=useNavigate();
+  let local={...localStorage};
 
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(items));
@@ -28,13 +29,14 @@ export default function Login() {
     if (email=='' || password=='')
         alert("Both email and password are required")
     else{
-        localStorage.clear();
         localStorage.setItem('email',email);
         localStorage.setItem('password',password);
         localStorage.setItem('isLogin',true);
         setEmail('');
         setPassword('');
         console.log({...localStorage})
+        local={...localStorage};
+        
 
         if(email.includes('admin') && password!='')
         {
@@ -46,9 +48,29 @@ export default function Login() {
         {
             navigate("/user", { replace: true });
         }
+        else{
+          alert('Kindly enter valid credentials !')
+        }
     }
   }
+  
+  const handleDashboardClick=()=>{
+    if(local.email.includes('admin'))
+      navigate('/admin');
+    else
+      navigate('/user')
+  }
 
+  if(local.isLogin=='true'){
+    return(<div>
+        <h1>User already logged in as {email.includes('admin') ? <>admin</> : <>user</>}</h1>
+        <h4>Press the button below to navigate to relevant page</h4>
+        <button onClick={handleDashboardClick}>Dashboard</button>
+
+    </div>
+  );
+}
+else 
   return (
     <div>
       <h1>Login Page</h1>

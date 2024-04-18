@@ -23,6 +23,9 @@ function App() {
     localStorage.setItem('email','')
   },[])
 
+  const handleLogout=()=>{
+    localStorage.clear();
+  }
 
   return (
     <div className="App">
@@ -33,6 +36,9 @@ function App() {
           </Link>
           <Link to="/login" class="list">
             Login
+          </Link>
+          <Link to="/" class="list" onClick={handleLogout}>
+            Logout
           </Link>
         </ul>
       </nav></div>

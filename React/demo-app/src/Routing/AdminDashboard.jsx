@@ -11,7 +11,7 @@ export default function AdminDashboard() {
   }
 
   const local={...localStorage};
-  if(Boolean(local.isLogin)==true && local.email.includes('admin'))
+  if(local.isLogin==true && local.email.includes('admin') && !local.email.includes('user'))
   {
       return (<div>
         <div>Admin Dashboard</div>
