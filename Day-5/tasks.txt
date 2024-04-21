@@ -1,0 +1,10 @@
+Day 5:
+    What is React & How does it work?
+    Why React is not SEO friendly?
+    Virtual DOM vs Real DOM
+        Reconciliation 
+        React as UI Runtime: https://overreacted.io/react-as-a-ui-runtime/
+    Components
+        Different types 
+        Difference between class & functional
+    Lifecycle of class & functional component
