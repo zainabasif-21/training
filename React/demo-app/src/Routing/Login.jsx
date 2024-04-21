@@ -1,20 +1,17 @@
-import React from "react";
-import { useState, useEffect} from "react";
+import React, { useContext } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { authContext } from "../App";
 
-
-export default function Login() {
+export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [items, setItems] = useState({});
-  const navigate=useNavigate();
-  let local={...localStorage};
+  const { user, isLogged } = useContext(authContext);
 
-  useEffect(() => {
-    localStorage.setItem('items', JSON.stringify(items));
-  }, [items]);
+  const navigate = useNavigate();
 
+  const { setLogIn, setUser} = { ...props };
 
   const setter = {
     email: setEmail,
@@ -25,71 +22,62 @@ export default function Login() {
     setter[e.target.name](e.target.value);
   };
 
-  const handleSubmit=()=>{
-    if (email=='' || password=='')
-        alert("Both email and password are required")
-    else{
-        localStorage.setItem('email',email);
-        localStorage.setItem('password',password);
-        localStorage.setItem('isLogin',true);
-        setEmail('');
-        setPassword('');
-        console.log({...localStorage})
-        local={...localStorage};
-        
+  const handleSubmit = () => {
+    if (email == "" || password == "")
+      alert("Both email and password are required");
+    else {
+      setUser(email);
+      setLogIn(true);
 
-        if(email.includes('admin') && password!='')
-        {
-            console.log('before link');
-            navigate("/admin", { replace: true });
-            
-        }
-        if(email.includes('user') && password!='')
-        {
-            navigate("/user", { replace: true });
-        }
-        else{
-          alert('Kindly enter valid credentials !')
-        }
+      if (email.includes("admin") && password != "") {
+        navigate("/admin");
+      }
+      else if (email.includes("user") && password != "") {
+        navigate("/user");
+      } else {
+        alert("Kindly enter valid credentials !");
+      }
     }
-  }
-  
-  const handleDashboardClick=()=>{
-    if(local.email.includes('admin'))
-      navigate('/admin');
-    else
-      navigate('/user')
-  }
+  };
 
-  if(local.isLogin=='true'){
-    return(<div>
-        <h1>User already logged in as {email.includes('admin') ? <>admin</> : <>user</>}</h1>
+  const handleDashboardClick = () => {
+    if (user.includes("admin")) navigate("/admin");
+    else navigate("/user");
+  };
+
+  if (isLogged == true) {
+    return (
+      <div>
+        <h1>
+          User already logged in as{" "}
+          {user.includes("admin") ? <>admin</> : <>user</>}
+        </h1>
         <h4>Press the button below to navigate to relevant page</h4>
         <button onClick={handleDashboardClick}>Dashboard</button>
-
-    </div>
-  );
-}
-else 
-  return (
-    <div>
-      <h1>Login Page</h1>
-      <div>
-        <div>
-          <h4>Email</h4>
-          <input name="email" value={email} onChange={inputHandler}></input>
-        </div>
-        <div>
-          <h4>Password</h4>
-          <input
-        
-            name="password"
-            value={password}
-            onChange={inputHandler}
-          ></input>
-        </div>
-        <button onClick={handleSubmit}>Submit</button>
       </div>
-    </div>
-  );
+    );
+  } else
+    return (
+      <div>
+        <h1>Login Page</h1>
+        <div>
+          <div>
+            <h4>Email</h4>
+            <input name="email" value={email} onChange={inputHandler}></input>
+          </div>
+          <div>
+            <h4>Password</h4>
+            <input
+              name="password"
+              value={password}
+              onChange={inputHandler}
+            ></input>
+          </div>
+          <br></br>
+          <br></br>
+          <button onClick={handleSubmit}>Submit</button>
+          <br></br>
+        </div>
+      </div>
+    );
 }

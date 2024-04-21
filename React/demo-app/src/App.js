@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
+import { useState, createContext } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
-import logo from './logo.svg';
+
 import './App.css';
-import State from './Hooks/useState/State';
-import RefHook from './Hooks/useRef/RefHook';
-import Effect from './Hooks/useEffect/Effect';
-import ClassComponent from './ClassAndFunctionalComponent/ClassComponent';
-import FunctionalComponent from './ClassAndFunctionalComponent/FunctionalComponent';
+// import State from './Hooks/useState/State';
+// import RefHook from './Hooks/useRef/RefHook';
+// import Effect from './Hooks/useEffect/Effect';
+// import ClassComponent from './ClassAndFunctionalComponent/ClassComponent';
+// import FunctionalComponent from './ClassAndFunctionalComponent/FunctionalComponent';
+
+import Navbar from './Routing/Navbar';
 import LandingPage from './Routing/LandingPage';
 import ErrorPage from './Routing/ErrorPage';
 import Login from './Routing/Login';
@@ -14,49 +17,43 @@ import AdminDashboard from './Routing/AdminDashboard';
 import UserDashboard from './Routing/UserDashboard';
 import AdminUserData from './Routing/AdminUserData';
 import UserProducts from './Routing/UserProducts';
+import FormikForm from './Form/FormikForm';
+import ProtectWrapper from './Routing/ProtectWrapper';
 
 
-function App() {
+export const authContext = createContext();
 
-  useEffect(()=>{
-    localStorage.setItem('isLogin','false');
-    localStorage.setItem('email','')
-  },[])
+export function App() {
 
-  const handleLogout=()=>{
-    localStorage.clear();
-  }
+  
+  const [isLogged, setLogIn] = useState(false);
+  const [user, setUser] = useState('');
+
+  console.log(user, isLogged)
+
+
 
   return (
     <div className="App">
-      <div className='navDiv'><nav>
-        <ul>
-          <Link to="/" class="list">
-            Home
-          </Link>
-          <Link to="/login" class="list">
-            Login
-          </Link>
-          <Link to="/" class="list" onClick={handleLogout}>
-            Logout
-          </Link>
-        </ul>
-      </nav></div>
 
-
-      <Routes>
-        <Route path="/" index={true} element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path='/admin' element={<AdminDashboard/>}>
-            <Route path='users' element={<AdminUserData/>}/>
-        </Route>
-        <Route path='/user' element={<UserDashboard/>}> 
-        <Route path='products' element={<UserProducts/>} />
-        </Route>
-        <Route path="/*" element={<ErrorPage />} />
-      </Routes>
+      <Navbar setLogIn={setLogIn} setUser={setUser} />
+      <authContext.Provider value={{ user, isLogged }} >
+        <Routes>
+          <Route path="/" index={true} element={<LandingPage />} />
+          <Route path="/login" element={<Login setLogIn={setLogIn} setUser={setUser} />} />
+          <Route path='/admin' element={<ProtectWrapper><AdminDashboard /></ProtectWrapper>}>
+            <Route path='users' element={<AdminUserData />} />
+          </Route>
+          <Route path='/user' element={<ProtectWrapper><UserDashboard /></ProtectWrapper>}>
+            <Route path='products' element={<UserProducts />} />
+          </Route>
+          <Route path="/form" element={<FormikForm />} />
+          <Route path="/*" element={<ErrorPage />} />
+        </Routes>
+      </authContext.Provider>
     </div>
   );
 }
 
-export default App;
+
+
