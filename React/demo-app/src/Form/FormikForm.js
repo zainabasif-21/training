@@ -11,7 +11,7 @@ export default function FormikForm({ formConfig, initialValues, onSubmit }) {
           validationSchema={Yup.object().shape(formConfig.validationSchema)}
           onSubmit={onSubmit}
         >
-          {({isSubmitting }) => (
+          {(formikProps ) => (
             <Form>
               {formConfig.fields.map((field) => (
                 <div className='inputDiv' key={field.name}>
@@ -51,7 +51,11 @@ export default function FormikForm({ formConfig, initialValues, onSubmit }) {
                   <ErrorMessage name={field.name} component="div" />
                 </div>
               ))}
-              <button type="submit" disabled={isSubmitting}  >
+              <button type="submit"  onClick={()=>{
+                onSubmit(formikProps.values)
+                formikProps.resetForm();
+                formikProps.setSubmitting(false);
+              }}>
                 Submit
               </button>
             </Form>

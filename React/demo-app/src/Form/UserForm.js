@@ -1,6 +1,7 @@
 import React from "react";
 import FormikForm from "./FormikForm";
 import * as Yup from "yup";
+import { Formik } from "formik";
 
 
 //Template and containing fileds of form along with intital values submit 
@@ -87,10 +88,9 @@ export default function UserForm() {
    
   };
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = (values) => {
     console.log("Form submitted with values:", values);
-    setSubmitting(false);
-
+    
   };
 
 
