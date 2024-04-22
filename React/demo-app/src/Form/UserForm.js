@@ -1,10 +1,10 @@
-//NewUserForm.js
 import React from "react";
 import FormikForm from "./FormikForm";
 import * as Yup from "yup";
-import { Formik, Form } from "formik";
 
 
+//Template and containing fileds of form along with intital values submit 
+//handler and validation schema  
 export default function UserForm() {
   const formConfig = {
     fields: [
@@ -84,7 +84,7 @@ export default function UserForm() {
     email: "",
     role: "",
     qualification: ""
-    // Initialize other fields
+   
   };
 
   const handleSubmit = (values, { setSubmitting }) => {
