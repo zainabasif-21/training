@@ -11,7 +11,7 @@ export default function FormikForm({ formConfig, initialValues, onSubmit }) {
           validationSchema={Yup.object().shape(formConfig.validationSchema)}
           onSubmit={onSubmit}
         >
-          {({isSubmitting,setValues }) => (
+          {({isSubmitting }) => (
             <Form>
               {formConfig.fields.map((field) => (
                 <div className='inputDiv' key={field.name}>
