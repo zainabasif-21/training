@@ -17,7 +17,7 @@ import AdminDashboard from './Routing/AdminDashboard';
 import UserDashboard from './Routing/UserDashboard';
 import AdminUserData from './Routing/AdminUserData';
 import UserProducts from './Routing/UserProducts';
-import FormikForm from './Form/FormikForm';
+import UserForm from './Form/UserForm';
 import ProtectWrapper from './Routing/ProtectWrapper';
 
 
@@ -30,7 +30,7 @@ export function App() {
   const [user, setUser] = useState('');
 
   console.log(user, isLogged)
-
+  
 
 
   return (
@@ -47,7 +47,7 @@ export function App() {
           <Route path='/user' element={<ProtectWrapper><UserDashboard /></ProtectWrapper>}>
             <Route path='products' element={<UserProducts />} />
           </Route>
-          <Route path="/form" element={<FormikForm />} />
+          <Route path="/form" element={<UserForm />} />
           <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </authContext.Provider>

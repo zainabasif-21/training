@@ -1,56 +1,62 @@
-import React from 'react'
-import { useFormik } from 'formik'
-import './Formik.css'
+// DynamicForm.js
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import './FormikForm.css'
 
-export default function FormikForm() {
-    const formik = useFormik({
-        initialValues: {
-            name: '',
-            email: '',
-            age: 0,
-            temp1: '',
-            temp2: ''
-        },
-        onSubmit: (values) => {
-            console.log(values);
-        }, validate: (values) => {
 
-        }
-    })
-    console.log(formik.values)
+export default function FormikForm({ formConfig, initialValues, onSubmit }) {
     return (
-        <div>
-            <h1>Dynamic Form with formik</h1>
-            <div className='formDiv'>
-                <form onSubmit={formik.handleSubmit}>
-                    <div className='inputDiv'>
-                        <label>Name</label>
-                        <input name='name' id='' onChange={formik.handleChange} value={formik.values.name} type='text' />
+        <Formik
+          initialValues={initialValues}
+          validationSchema={Yup.object().shape(formConfig.validationSchema)}
+          onSubmit={onSubmit}
+        >
+          {({isSubmitting,setValues }) => (
+            <Form>
+              {formConfig.fields.map((field) => (
+                <div className='inputDiv' key={field.name}>
+                  <label >{field.label}</label>
+                  {field.type === "select" ? (
+                    <Field as="select" name={field.name}>
+                      {field.label}
+                      {field.options.map((option) => (
+                        <option name={option.label} key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </Field>
+                  ) : field.type === "radio" ? (
+                    // Render radio buttons
+                    <div>
+                      {field.options.map((option) => (
+                        <div key={option.value}>
+                          <Field
+                            type="radio"
+                            id={option.value}
+                            name={field.name}
+                            value={option.value}
+                          />
+                          <label for={option.value}>{option.label}</label>
+                        </div>
+                      ))}
                     </div>
-
-                    <div className='inputDiv'>
-                        <label>Email</label>
-                        <input name='email' id='' onChange={formik.handleChange} value={formik.values.email} type='' />
-                    </div>
-
-                    <div className='inputDiv'>
-                        <label>Age</label>
-                        <input name='age' id='' onChange={formik.handleChange} value={formik.values.age} />
-                    </div>
-
-                    <div className='inputDiv'>
-                        <label>Gender</label>
-                        <input name='temp1' id='' onChange={formik.handleChange} value={formik.values.temp1} type='' />
-                    </div>
-
-                    <div className='inputDiv'>
-                        <label>Date</label>
-                        <input name='temp2' id='' onChange={formik.handleChange} value={formik.values.temp2} />
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
-    )
+                  ) : (
+                    // Render other input types (e.g., text, number, email)
+                    <Field
+                      name={field.name}
+                      type={field.inputType}
+                      component={field.component}
+                    />
+                  )}
+                  <ErrorMessage name={field.name} component="div" />
+                </div>
+              ))}
+              <button type="submit" disabled={isSubmitting}  >
+                Submit
+              </button>
+            </Form>
+          )}
+        </Formik>
+  )
 }

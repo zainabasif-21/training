@@ -9,8 +9,6 @@ import Login from './Login';
 export default function ProtectWrapper(props) {
     const { user, isLogged } = useContext(authContext);
 
-    let navigate = useNavigate();
-
     const selector={
         'admin':AdminDashboard,
         'user':UserDashboard
