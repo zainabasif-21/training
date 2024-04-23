@@ -1,17 +1,13 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
-import { authContext } from "../App";
+import IntermediatePage from "./IntermediatePage";
 
 export default function UserDashboard() {
-  const navigate = useNavigate();
-  const { user, isLogged } = useContext(authContext);
+ 
+  const {isLogged,type } = useSelector((state)=>state.login);
 
-  const handleSubmit = () => {
-    navigate("/login");
-  };
-
-  if (isLogged == true && user.includes("user") && !user.includes("admin")) {
+  if (isLogged == true && type=='user') {
     return (
       <div>
         <div>UserDashboard</div>
@@ -25,10 +21,7 @@ export default function UserDashboard() {
   } else
     return (
       <div>
-        <h3>Authetication Failed</h3>
-        kindly login again as a user
-        <h4>Press the below button to navigate to login page</h4>
-        <button onClick={handleSubmit}>Login Page</button>
+        <IntermediatePage/>
       </div>
     );
 }

@@ -4,7 +4,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState= {
     isLogged: false,
     user:'',
-    password:''
+    password:'',
+    type:''
 }
 
 export const loginSlice = createSlice({
@@ -19,6 +20,8 @@ export const loginSlice = createSlice({
       state.isLogged=true;
       state.user=action.payload.email;
       state.password=action.payload.password;
+      state.type=action.payload.email.includes('user')? 'user': 'admin';
+      
     },
     logout: (state) => {
       state.isLogged=false;

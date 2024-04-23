@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { UseSelector,useDispatch } from 'react-redux';
+import { logout } from '../ReduxToolkit/loginSlice';
 import './Navbar.css'
 
-export default function Navbar(props) {
-    const { setLogIn, setUser } = { ...props }
+export default function Navbar() {
+    const dispatch=useDispatch();
+    const navigate=useNavigate();
 
     const handleLogout = () => {
-        setLogIn(false);
-        setUser('');
-        localStorage.clear();
+        dispatch(logout());
+        navigate('/');
     }
 
     return (

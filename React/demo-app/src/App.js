@@ -21,9 +21,6 @@ import UserForm from './Form/UserForm';
 import ProtectWrapper from './Routing/ProtectWrapper';
 
 
-
-export const authContext = createContext();
-
 export function App() {
 
   
@@ -38,7 +35,6 @@ export function App() {
     <div className="App">
 
       <Navbar setLogIn={setLogIn} setUser={setUser} />
-      <authContext.Provider value={{ user, isLogged }} >
         <Routes>
           <Route path="/" index={true} element={<LandingPage />} />
           <Route path="/login" element={<Login setLogIn={setLogIn} setUser={setUser} />} />
@@ -51,7 +47,6 @@ export function App() {
           <Route path="/form" element={<UserForm />} />
           <Route path="/*" element={<ErrorPage />} />
         </Routes>
-      </authContext.Provider>
 
     </div>
   );

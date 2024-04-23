@@ -2,20 +2,17 @@ import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { authContext } from "../App";
-import { UseSelector,useDispatch, useSelector } from "react-redux";
+import {useDispatch,useSelector } from "react-redux";
 import {login,logout} from "../ReduxToolkit/loginSlice";
-import { store } from "../ReduxToolkit/Store";
 
 export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user, isLogged } = useContext(authContext);
+  
+  const {isLogged,user,type}=useSelector((state)=>state.login)
 
   const dispatch=useDispatch();
   const navigate = useNavigate();
-
-  const { setLogIn, setUser} = { ...props };
 
   const setter = {
     email: setEmail,
@@ -27,27 +24,28 @@ export default function Login(props) {
   };
 
   const handleSubmit = () => {
+    
     if (email == "" || password == "")
       alert("Both email and password are required");
-    else {
-      setUser(email);
-      setLogIn(true);
-      dispatch(login({email,password}));
-      console.log(store.getState())
-
-      if (email.includes("admin") && password != "") {
-        navigate("/admin");
-      }
-      else if (email.includes("user") && password != "") {
-        navigate("/user");
-      } else {
-        alert("Kindly enter valid credentials !");
+    else if (password!='' && !(email.includes('user') && email.includes('admin'))){
+        dispatch(login({email,password}));
+      
+        if (email.includes("admin")) {
+          navigate("/admin");
+        }
+        else if (email.includes("user")) {
+          navigate("/user");
       }
     }
+    else {
+      alert("Kindly enter valid credentials !");
+    }
+  
   };
 
   const handleDashboardClick = () => {
-    if (user.includes("admin")) navigate("/admin");
+    if (type=='admin') 
+          navigate("/admin");
     else navigate("/user");
   };
 
@@ -56,7 +54,7 @@ export default function Login(props) {
       <div>
         <h1>
           User already logged in as{" "}
-          {user.includes("admin") ? <>admin</> : <>user</>}
+          {type=='admin' ? <>admin</> : <>user</>}
         </h1>
         <h4>Press the button below to navigate to relevant page</h4>
         <button onClick={handleDashboardClick}>Dashboard</button>
