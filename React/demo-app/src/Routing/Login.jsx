@@ -3,12 +3,16 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../App";
+import { UseSelector,useDispatch, useSelector } from "react-redux";
+import {login,logout} from "../ReduxToolkit/loginSlice";
+import { store } from "../ReduxToolkit/Store";
 
 export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user, isLogged } = useContext(authContext);
 
+  const dispatch=useDispatch();
   const navigate = useNavigate();
 
   const { setLogIn, setUser} = { ...props };
@@ -28,6 +32,8 @@ export default function Login(props) {
     else {
       setUser(email);
       setLogIn(true);
+      dispatch(login({email,password}));
+      console.log(store.getState())
 
       if (email.includes("admin") && password != "") {
         navigate("/admin");
