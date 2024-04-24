@@ -1,0 +1,14 @@
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  margin: auto;
+  width: 75%;
+}
+
+.formDiv {
+  align-items: center;
+  align-content: center;
+  align-self: center;
+}
