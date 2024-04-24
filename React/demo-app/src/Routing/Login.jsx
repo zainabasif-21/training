@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {useDispatch,useSelector } from "react-redux";
-import {login,logout} from "../ReduxToolkit/loginSlice";
+import {login} from "../ReduxToolkit/loginSlice";
 
 export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
-  const {isLogged,user,type}=useSelector((state)=>state.login)
+  const {isLogged,type}=useSelector((state)=>state.login)
 
   const dispatch=useDispatch();
   const navigate = useNavigate();
@@ -25,9 +23,9 @@ export default function Login(props) {
 
   const handleSubmit = () => {
     
-    if (email == "" || password == "")
+    if (email === "" || password === "")
       alert("Both email and password are required");
-    else if (password!='' && !(email.includes('user') && email.includes('admin'))){
+    else if (password!=='' && !(email.includes('user') && email.includes('admin'))){
         dispatch(login({email,password}));
       
         if (email.includes("admin")) {
@@ -44,17 +42,17 @@ export default function Login(props) {
   };
 
   const handleDashboardClick = () => {
-    if (type=='admin') 
+    if (type==='admin') 
           navigate("/admin");
     else navigate("/user");
   };
 
-  if (isLogged == true) {
+  if (isLogged === true) {
     return (
       <div>
         <h1>
           User already logged in as{" "}
-          {type=='admin' ? <>admin</> : <>user</>}
+          {type==='admin' ? <>admin</> : <>user</>}
         </h1>
         <h4>Press the button below to navigate to relevant page</h4>
         <button onClick={handleDashboardClick}>Dashboard</button>

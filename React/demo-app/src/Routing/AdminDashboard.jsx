@@ -8,7 +8,7 @@ export default function AdminDashboard() {
 
  
 
-  if (isLogged == true && type=='admin') {
+  if (isLogged === true && type==='admin') {
     return (
       <div>
         <div>Admin Dashboard</div>

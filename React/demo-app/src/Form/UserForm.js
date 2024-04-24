@@ -1,7 +1,6 @@
 import React from "react";
 import FormikForm from "./FormikForm";
 import * as Yup from "yup";
-import { Formik } from "formik";
 
 
 //Template and containing fileds of form along with intital values submit 
